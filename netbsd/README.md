@@ -62,16 +62,47 @@ Crosscompilation guide:
 
 ### Running a virtual machine with a custom kernel
 
-A quick and easy way to run NetBSD on QEMU is `virt-manager`, it has a GUI 
-creator for a VM
-
-Select the created .iso image
-
-At the last step, check configure VM before installing and proceed
-
-Select OVMF (UEFI) as the firmware
-
-Run the VM
+- using terminal
+  - setup (one-time)
+    - create disk
+      ```
+      qemu-img create -f qcow2 disk.qcow2 32G
+      ```
+    - run QEMU with cdrom installer image
+      ```
+      qemu-system-x86_64 \
+        -m 2048 \
+        -boot d \
+        -cdrom NetBSD-9.99.99-amd64.iso \
+        -drive if=virtio,file=disk.qcow2,format=qcow2 \
+        -enable-kvm \
+        -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
+        -device virtio-net,netdev=mynet0 \
+        -bios OVMF.fd \
+        -smp 6 \
+        -cpu host
+      ```
+  - running
+    - can also be used for debugging
+      ```
+      qemu-system-x86_64 -m 2048 \
+        -drive if=virtio,file=disk.qcow2,format=qcow2 \
+        -enable-kvm \
+        -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:9272-:22 \
+        -device virtio-net,netdev=mynet0 \
+        -bios OVMF.fd \
+        -smp 6 \
+        -s \
+        -cpu host
+      ```
+- using GUI
+  
+  A quick and easy way to run NetBSD on QEMU is `virt-manager`, it has a GUI 
+  creator for a VM
+  - Select the created .iso image by browsing for local files
+  - At the last step, check configure VM before installing and proceed
+  - Select OVMF (UEFI) as the firmware
+  - Run the VM
 
 ### NetBSD ESRT recognition - implementation proposition
 
