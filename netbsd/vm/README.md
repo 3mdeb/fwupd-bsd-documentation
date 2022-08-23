@@ -1,4 +1,4 @@
-# OpenBSD VM management
+# NetBSD VM management
 
 ## Overview
 
@@ -6,9 +6,9 @@ This is your working directory for auto-installation and using
 the VM.
 
 
-`disk.qcow2` will be created by `setup.sh` script:
+If it doesn't exist, `disk.qcow2` (the 32G hard-drive of the VM) will be created by `setup.sh` script
 
- * `disk.qcow2` is the 32G hard-drive of the VM
+If it does, the script will delete it and create again (with user confirmation)
 
 ### Prerequisites
 
