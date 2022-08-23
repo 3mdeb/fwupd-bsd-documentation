@@ -1,0 +1,6 @@
+/ai/site/id_rsa.pub
+/tftp/
+/web/
+/disk.qcow2
+/OVMF.fd
+/*.iso
