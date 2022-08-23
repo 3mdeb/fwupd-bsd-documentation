@@ -5,6 +5,21 @@ ARCH="amd64"
 
 IMAGE_FILENAME="NetBSD-$VERSION-$ARCH.iso"
 
+function delete_confirmation() {
+    if [ ! -f disk.qcow2 ]; then
+        return
+    else
+        echo "Setup utility will permanently delete the previous disk image!"
+        while true; do
+            read -p "Do you want to proceed? y/n " yn
+            case $yn in
+                [Yy]* ) rm disk.qcow2; break;;
+                [Nn]* ) exit 1;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi 
+}
 
 function safety_checks() {
     if [ -f disk.qcow2 ]; then
@@ -61,16 +76,17 @@ function install_netbsd() {
     qemu-system-x86_64 \
         -m 2048 \
         -boot d \
+        -bios OVMF.fd \
         -cdrom NetBSD-9.99.99-amd64.iso \
         -drive if=virtio,file=disk.qcow2,format=qcow2 \
         -enable-kvm \
         -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
         -device virtio-net,netdev=mynet0 \
-        -bios OVMF.fd \
         -smp 6 \
         -cpu host
 }
 
+delete_confirmation
 safety_checks
 dependency_checks
 install_netbsd
