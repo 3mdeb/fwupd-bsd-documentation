@@ -15,9 +15,14 @@ These files need to be added to this directory (copied or
 symlinked).
 
 * NetBSD installer image (`.iso`) - this can be sourced from:
-  * a stable NetBSD release, like https://www.netbsd.org/releases/formal-9/NetBSD-9.3.html (CD/DVD installation image)
+  * a stable NetBSD release, like
+   https://www.netbsd.org/releases/formal-9/NetBSD-9.3.html (CD/DVD 
+   installation image)
   * produced from sources
-    * this requires going through all build steps, that is building kernel, building release and producing iso-image, instructions about building can be found at the main README (one directory up)
+    * this requires going through all build steps, that is building kernel, 
+    building release and producing iso-image
+    * instructions about building can be found at the main README (one 
+    directory up)
     * the `.iso` file can be found at `~/obj/releasedir/images`
 * UEFI binary (`OVMF.fd`)
   * difficult to find online, included with some template ESRT in this directory
