@@ -2,5 +2,4 @@
 /tftp/
 /web/
 /disk.qcow2
-/OVMF.fd
 /*.iso
