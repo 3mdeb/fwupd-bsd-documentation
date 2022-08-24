@@ -22,10 +22,22 @@ process:
 
 ## Customising the kernel
 
+The building process is done on your host machine, and the produced image is 
+meant to be ran on NetBSD started in QEMU.
+
+It comprises of a few steps:
+- downloading the sources
+- build the toolchain
+- build the kernel
+- build a release
+- produce `.iso` image (CD/DVD)
+
 Thorough documentation and instructions:
 - http://netbsd.org/docs/kernel/
 
 ### Prerequisites
+- QEMU installed (to emulate an amd64 system)
+  - `sudo apt install qemu-systemx86_64`
 - CVS (Concurrent Versioning System) installed
   - `sudo apt install cvs`
 - NetBSD source files, preferably from a stable version

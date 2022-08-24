@@ -66,6 +66,20 @@ function dependency_checks() {
     fi
 }
 
+function prepare_mirror() {
+    if [ -f web/.mirrored.$VERSION.$ARCH ]; then
+        echo ">>>> Skipping mirroring NetBSD $VERSION-$ARCH, already installed"
+        return
+    fi
+
+    echo ">>>> Mirroring NetBSD $VERSION-$ARCH in web/pub/NetBSD/$VERSION/$ARCH"
+
+    mkdir -p web/pub/NetBSD/$VERSION/$ARCH
+
+    rsync --archive --files-from=- --verbose \
+        rsync://rsync.fr.NetBSD.org/
+}
+
 function install_netbsd() {
     echo ">>>> Starting installation..."
 

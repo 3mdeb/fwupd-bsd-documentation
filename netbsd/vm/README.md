@@ -2,11 +2,10 @@
 
 ## Overview
 
-This is your working directory for auto-installation and using 
-the VM.
+This is your working directory for auto-installation and using the VM.
 
-
-If it doesn't exist, `disk.qcow2` (the 32G hard-drive of the VM) will be created by `setup.sh` script
+If it doesn't exist, `disk.qcow2` (the 32G hard-drive of the VM) will be 
+created by `setup.sh` script
 
 If it does, the script will delete it and create again (with user confirmation)
 
@@ -15,8 +14,16 @@ If it does, the script will delete it and create again (with user confirmation)
 These files need to be added to this directory (copied or 
 symlinked).
 
-* NetBSD installer image (`.iso`)
-* UEFI binary (`OVMF.fd`) 
+* NetBSD installer image (`.iso`) - this can be sourced from:
+  * a stable NetBSD release, like https://www.netbsd.org/releases/formal-9/NetBSD-9.3.html (CD/DVD installation image)
+  * produced from sources
+    * this requires going through all build steps, that is building kernel, building release and producing iso-image, instructions about building can be found at the main README (one directory up)
+    * the `.iso` file can be found at `~/obj/releasedir/images`
+* UEFI binary (`OVMF.fd`)
+  * difficult to find online, included with some template ESRT in this directory
+  * built from sources - follow the instructions (in order):
+    * https://github.com/tianocore/tianocore.github.io/wiki/Common-instructions 
+    * https://github.com/tianocore/edk2/blob/master/OvmfPkg/README
 
 ## Setup
 
