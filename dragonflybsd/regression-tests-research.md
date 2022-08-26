@@ -11,7 +11,7 @@ formats.
 contact maintainers for information.
 
 1. It would be more convenient to create new tests similarly to ones currently
-existing in repo. Introduction whole robot framework environment to the project
+existing in repo. Introducing whole robot framework environment to the project
 may raise many questions and create many issues.
 
 ## OS installation in automated test
