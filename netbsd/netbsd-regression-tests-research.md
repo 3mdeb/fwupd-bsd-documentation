@@ -46,13 +46,26 @@ When adding new tests, please try to follow the following conventions.
     ...
 ```
 
-2. Equivalently, all tests for userland utilities should try to follow their
+1. Equivalently, all tests for userland utilities should try to follow their
    location in the source tree. If this can not be satisfied, the tests for
    a utility should be located under the directory to which the utility is
    installed. Thus, a test for env(1) should go to src/tests/usr.bin/env.
    Likewise, a test for tcpdump(8) should be in src/tests/usr.sbin/tcpdump,
    even though the source code for the program is located under src/external.
 
-3. Otherwise use your own discretion.
+1. Otherwise use your own discretion.
 
 - [Link](https://github.com/NetBSD/src/blob/trunk/tests/README)
+
+1. It would be more convenient to create new tests similarly to ones currently
+existing in repo. Introducing whole robot framework environment to the project
+may raise many questions and create many issues.
+
+## OS installation in automated test
+
+1. Automatic os installation test are currently implemented in various cases
+in our testing env (eg. pfSense, Ubuntu, Debian). They're implemented using
+Robot Framework and Bash scripts. Main issue would be creating unattended
+installer __and documentation how to create one__.
+
+[NetBSD unattended installer creation](https://unix.stackexchange.com/questions/250289/automatic-install-netbsd-iso)
