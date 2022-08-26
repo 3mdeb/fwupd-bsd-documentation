@@ -18,7 +18,7 @@ won't change.
 
 **What is the testing process like before a new version is released?**
 
-Can't find any information about the tests of the released operation system.
+No information about testing process has been founded.
 
 ## Regression repository
 
@@ -59,7 +59,7 @@ and all regression will begin to execute.
 
 **Are any CI / CD mechanisms introduced? If so, what are they?**
 
-None mechanism has been founded
+No mechanism has been founded.
 
 **Are there a lot of Issues in the test infrastructure repository and are there a lot of requests?**
 
