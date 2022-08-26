@@ -69,3 +69,5 @@ Robot Framework and Bash scripts. Main issue would be creating unattended
 installer __and documentation how to create one__.
 
 [NetBSD unattended installer creation](https://unix.stackexchange.com/questions/250289/automatic-install-netbsd-iso)
+[pfSense installerconfig](https://pcengines.github.io/apu2-documentation/pfsense_installerconfig/)
+[NetBSD supported hardware](https://www.netbsd.org/ports/)
