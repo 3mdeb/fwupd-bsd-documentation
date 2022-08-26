@@ -5,9 +5,10 @@
 **How is OpenBSD released?**
 
 The release information appears on the official project
-[website](https://www.openbsd.org/). New version is probably announced earlier,
-by using the official communication channels. All releases contain the new OS
-and release notes which accurately describe the changes in the software.
+[website](https://www.openbsd.org/). The new version is probably announced
+earlier, by using the official communication channels. All releases contain
+the new OS and release notes which accurately describe the changes in the
+software.
 
 **How often are OpenBSD releases shipped?**
 
@@ -58,11 +59,11 @@ and all regression will begin to execute.
 
 **Are any CI / CD mechanisms introduced? If so, what are they?**
 
-I haven't noticed it.
+None mechanism has been founded
 
 **Are there a lot of Issues in the test infrastructure repository and are there a lot of requests?**
 
-Repository's description states "Pull requests not accepted - send diffs to the
+The repository's description states "Pull requests not accepted - send diffs to the
 tech@ mailing list." - [here](https://marc.info/?l=openbsd-tech).
 Bugs are also in [the mailing list](https://marc.info/?l=openbsd-bugs), so hard
 to say how many of them are open.
