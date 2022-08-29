@@ -36,7 +36,7 @@ Run `./setup.sh`, follow the GUI installation setting everything
 as default and selecting minimal installation.
 
 This process takes a few minutes, after it's finished close the 
-VM and use run the VM.
+VM and use `./run.sh` to run the VM.
 
 ## Running VM after installation
 
