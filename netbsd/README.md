@@ -133,7 +133,7 @@ Based on the work done here:
   - https://github.com/3mdeb/openbsd-src/compare/master...3mdeb:openbsd-src:esrt
 - linux implementation:
   -  https://github.com/torvalds/linux/blob/master/drivers/firmware/efi/esrt.c
-- some NetBSD implementation (probably WIP, unmerged)
+- NetBSD implementation, but for the ARM architecture
   - https://github.com/NetBSD/src/commit/25ff60a647236a2f67fc08ecac96a14fecffd6f1
 
 A proposed implementation of ESRT:

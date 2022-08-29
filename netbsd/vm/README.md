@@ -29,6 +29,14 @@ symlinked).
   * built from sources - follow the instructions (in order):
     * https://github.com/tianocore/tianocore.github.io/wiki/Common-instructions 
     * https://github.com/tianocore/edk2/blob/master/OvmfPkg/README
+    * or use TL;DR:
+        ```
+          git clone https://github.com/tianocore/edk2
+          cd edk2
+          git submodule update --init
+          make -C BaseTools
+          ( . edksetup.sh && build -a X64 -p OvmfPkg/OvmfPkgX64.dsc -t GCC5 -b RELEASE -n 5 )
+        ```
 
 ## Setup
 
