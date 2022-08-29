@@ -41,16 +41,6 @@ function dependency_checks() {
         fulfilled=n
     fi
 
-    if ! command -v python3 > /dev/null; then
-        echo 'python3 not found!'
-        fulfilled=n
-    fi
-
-    if ! command -v rsync > /dev/null; then
-        echo 'rsync not found!'
-        fulfilled=n
-    fi
-
     if ! command -v qemu-img > /dev/null; then
         echo 'qemu-img not found!'
         fulfilled=n
@@ -64,20 +54,6 @@ function dependency_checks() {
     if [ "$fulfilled" != y ]; then
         exit 1
     fi
-}
-
-function prepare_mirror() {
-    if [ -f web/.mirrored.$VERSION.$ARCH ]; then
-        echo ">>>> Skipping mirroring NetBSD $VERSION-$ARCH, already installed"
-        return
-    fi
-
-    echo ">>>> Mirroring NetBSD $VERSION-$ARCH in web/pub/NetBSD/$VERSION/$ARCH"
-
-    mkdir -p web/pub/NetBSD/$VERSION/$ARCH
-
-    rsync --archive --files-from=- --verbose \
-        rsync://rsync.fr.NetBSD.org/
 }
 
 function install_netbsd() {
