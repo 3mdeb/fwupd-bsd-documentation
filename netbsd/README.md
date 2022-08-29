@@ -141,8 +141,8 @@ A proposed implementation of ESRT:
 specification)
 - ESRT table and entry structures
 - `efi_init_esrt` - a function to remap the table and fill records on boot?
-- `efi_attach` function - adds a device?
-- `efi_match` function - compares devices?
+- `efi_attach` function - initializes device and/or data for managing it
+- `efi_match` function - checks whether device is present
 - `efi_get_esrt` function - returns esrt table
 - `efi_dump_esrt` function - prints the whole table
 - function to check if esrt exists 
