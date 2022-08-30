@@ -12,7 +12,7 @@ qemu-system-x86_64 -m 2048 \
                    -display gtk \
                    -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:9272-:22 \
                    -device virtio-net,netdev=mynet0 \
-                   -bios OVMF.fd \
+                   -bios /usr/share/ovmf/x64/OVMF.fd \
                    -smp 6 \
                    -s \
                    -cpu host
