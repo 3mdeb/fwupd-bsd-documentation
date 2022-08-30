@@ -118,6 +118,9 @@ OpenBSD openbsd.my.domain 7.2 CUSTOM#0 amd64
 Create `/etc/boot.conf` with `set image bsd.custom` if you want to load this
 kernel by default.
 
+If you kernel stops booting, just type `bsd` and hit enter in bootloader's
+prompt to load original kernel.
+
 ## Kernel development
 
 [`man options`](https://man.openbsd.org/options)
