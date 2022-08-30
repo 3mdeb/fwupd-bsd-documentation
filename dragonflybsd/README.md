@@ -8,11 +8,7 @@
 - Downloaded
 [latest version](https://mirror-master.dragonflybsd.org/iso-images/?C=M;O=D) of
 DragonflyBSD release in uncompressed `.iso` format
-- Created Virtual disk with `qemu-img` command:
-
-```
-$ qemu-img create -f qcow2 disk.qcow2 15G
-```
+- Created Virtual disk with `qemu-img` command (see `Installation` section)
 
 > NOTE: HAMMER2 (default filesystem on DragonflyBSD) was designed to work with >
 50GB spaces. From 512MB to 1GB can be reserved for reblocking and UNDO/READ
@@ -23,7 +19,8 @@ and verification purposes.
 
 These scripts do not provide full automation but still can be useful
 
-- **vm/setup.sh** - run QEMU machine first time
+- **vm/setup.sh** - run QEMU machine first time and boot to the default
+installer
 - **vm/run.sh** - run QEMU machine after instalation
 
 ## Installation
@@ -49,6 +46,8 @@ $ qemu-system-x86_64 -m 2048 -boot d \
    -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
    -device e1000,netdev=mynet0 -enable-kvm -smp 4 -cpu host
 ```
+
+> Note that OVMF path may be different in some systems
 
 The installation process isn't difficult; we need to answer a few questions (e.g.
 choose filesystem) and was described
