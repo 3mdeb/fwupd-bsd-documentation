@@ -17,6 +17,7 @@ qemu-system-x86_64 -m 2048 \
                    -device virtio-net,netdev=mynet0 \
                    -bios OVMF.fd \
                    -smp 6 \
+                   -cpu host \
                    -serial stdio \
                    -display none \
                    -s
