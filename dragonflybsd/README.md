@@ -131,6 +131,6 @@ hours
 5. Install kernel
 
 ```
-# make installekrnel KERNCONF=MYKERNEL
+# make installekernel KERNCONF=MYKERNEL
 # reboot
 ```
