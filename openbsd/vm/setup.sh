@@ -121,6 +121,7 @@ function install_openbsd() {
                        -device virtio-net,netdev=mynet0 \
                        -bios OVMF.fd \
                        -smp 6 \
+                       -cpu host \
                        -serial stdio \
                        -display none
 
