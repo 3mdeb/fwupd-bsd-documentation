@@ -70,6 +70,8 @@ It is possible to contribute to the project upstream. See
 [this](https://www.openbsd.org/faq/faq5.html#Diff) for how to send patches and
 recommendations at the top of [this](https://www.openbsd.org/mail.html).
 
+## Test scope
+
 **What tests should be added?**
 
 All functionalities that will be added should have tests. More it will be
