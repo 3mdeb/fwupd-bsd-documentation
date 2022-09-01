@@ -1,18 +1,24 @@
 # DragonflyBSD tests research
 
-## Recognition
+## Releases
 
-1. Tests are mainly written in C/C++ with support of some files with various
+**How is OpenBSD released?**
+
+Releases occur approximately twice a year. DragonFly release branches only
+contain bug and security fixes and are designed for people running production
+systems who don't want any surprises. Brand-new features often discussed on
+the mailing lists are typically not in release branches.
+
+DragonFly systems based on releases are labeled RELEASE, for example, you
+might be running DragonFly X.Y.Z-RELEASE. If you run a daily snapshot or
+track git master, you'll see X.Y.Z-DEVELOPMENT as your system version.
+
+## Regression repository
+
+**How are regression tests written (language, transparency, syntax)?**
+
+Tests are mainly written in C/C++ with support of some files with various
 formats.
-
-1. Tests don't include efi/esrt tests.
-
-1. DragonflyBSD doesn't have contribution guidelines. It may be necessary to
-contact maintainers for information.
-
-1. It would be more convenient to create new tests similarly to ones currently
-existing in repo. Introducing whole robot framework environment to the project
-may raise many questions and create many issues.
 
 ## OS installation in automated test
 
@@ -23,6 +29,13 @@ installer __and documentation how to create one__.
 
 [Auto installer creation guide](https://umbriel.fr/blog/DragonFly_BSD_autoinstall.html)
 [Similar guide for FreeBSD](https://www.freebsd.org/cgi/man.cgi?bsdinstall(8))
+
+## Contributing to the regression repository
+
+DragonflyBSD doesn't have contribution guidelines. It may be necessary to
+contact maintainers for information.
+
+## Test scope
 
 **What tests should be added?**
 
