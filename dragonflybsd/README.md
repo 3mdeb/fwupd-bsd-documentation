@@ -43,7 +43,7 @@ $ qemu-system-x86_64 -m 2048 -boot d \
    -bios /usr/share/ovmf/x64/OVMF.fd \
    -cdrom dfly-x86_64-6.2.2_REL.iso \
    -drive if=virtio,file=disk.qcow2,format=qcow2 \
-   -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
+   -netdev user,id=mynet0,hostfwd=tcp::9272-:22 \
    -device e1000,netdev=mynet0 -enable-kvm -smp 4 -cpu host
 ```
 
@@ -61,7 +61,7 @@ After installing DragonflyBSD we can run QEMU without mounted `.iso`:
  $ qemu-system-x86_64 -m 2048 -boot d \
    -bios /usr/share/ovmf/x64/OVMF.fd \
    -drive if=virtio,file=disk.qcow2,format=qcow2 \
-   -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
+   -netdev user,id=mynet0,hostfwd=tcp::9272-:22 \
    -device e1000,netdev=mynet0 -enable-kvm -smp 4 -cpu host
 ```
 
@@ -84,7 +84,7 @@ on DragonflyBSD.
 
 Now you should be able to connect:
 ```
-$ ssh -p 7722 root@localhost
+$ ssh -p 9272 root@localhost
 ```
 
 ## Building custom kernel
