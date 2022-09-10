@@ -112,25 +112,48 @@ are instructions from downloading sources to kernel installation:
 # ln -s /root/kernels/MYKERNEL
 ```
 
-3. Prepare DragonflyBSD toolchanin
+3. Build kernel (no need to build toolchain, because we're not cross-compiling)
 
-> NOTE: It is more challenging for PC than building kernel - it may take a few
-hours
-
-```
-# cd /usr/src
-# make buildworld
-```
-
-4. Build kernel
+First time:
 
 ```
-# make -j4 buildkernel KERNCONF=MYKERNEL
+# make -j4 nativekernel KERNCONF=MYKERNEL
 ```
 
-5. Install kernel
+Future times (`nativekernel` always starts from scratch, so use it only once or
+to do a rebuild):
 
 ```
-# make installekernel KERNCONF=MYKERNEL
+# make -j4 quickkernel KERNCONF=MYKERNEL
+```
+
+4. Install kernel
+
+```
+# make installkernel KERNCONF=MYKERNEL
 # reboot
+```
+
+Mind that rebooting might not be necessary if you can test your changes by
+loading a module with `kldload` command.
+
+5. Building/installing EFI bootloader
+
+First time (need to build `/usr/src/stand/lib/` to avoid cryptic build
+failures):
+
+```
+# cd /usr/src/stand
+# make
+# cd /usr/src/stand/boot/efi/loader
+# make
+# make install
+```
+
+Future times:
+
+```
+# cd /usr/src/stand/boot/efi/loader
+# make
+# make install
 ```
