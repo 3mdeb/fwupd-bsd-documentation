@@ -8,8 +8,10 @@ if [ ! -f dfly-x86_64-6.2.2_REL.iso ]; then
     exit 1
 fi
 
-echo "Preparing virtual disk..."
-qemu-img create -f qcow2 disk.qcow2 15G
+if [ ! -f disk.qcow2 ]; then
+    echo "Preparing virtual disk..."
+    qemu-img create -f qcow2 disk.qcow2 15G
+fi
 
 echo "Running QEMU..."
 qemu-system-x86_64 -m 2048 -boot d \
