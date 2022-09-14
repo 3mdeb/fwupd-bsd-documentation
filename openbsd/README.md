@@ -5,6 +5,24 @@
 Scroll through the slides at https://openbsdjumpstart.org/ if you want to get a
 general idea about OpenBSD.
 
+## OVMF
+
+Running QEMU in EFI mode requires EFI firmware in a form of `OVMF.fd` file.
+
+Linux distributions can provide one in some package in which case the file can
+be found at a path similar to `/usr/share/ovmf/x64/OVMF.fd` or
+`/usr/share/ovmf/OVMF.fd`.
+
+It can also be built manually by cloning https://github.com/tianocore/edk2/
+along with its submodules and building with the following commands in its root:
+
+```
+make -C BaseTools
+( . edksetup.sh && build -a X64 -p OvmfPkg/OvmfPkgX64.dsc -t GCC5 -b RELEASE -n $(nproc) )
+```
+
+`OVMF.fd` will be at `Build/OvmfPkg/RELEASE_GCC5/FV/OVMF.fd`.
+
 ## Installation/usage scripts
 
 During manual installation OpenBSD asks user a number of questions to guide
