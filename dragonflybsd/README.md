@@ -157,3 +157,26 @@ Future times:
 # make
 # make install
 ```
+
+## Troubleshooting
+
+In case of errors with binutils during building bootloader:
+
+```
+/usr/libexec/binutils234/elf/nm: 'netif.o': No such file
+/usr/libexec/binutils234/elf/nm: 'nfs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'dosfs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'ext2fs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'splitfs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'hammer1.o': No such file
+/usr/libexec/binutils234/elf/nm: 'hammer2.o': No such file
+/usr/libexec/binutils234/elf/ar: hammer2.o: No such file or directory
+*** [libstand32.a] Error code 1
+```
+
+try to build `libefi` first:
+
+```
+# cd /usr/src/stand/boot/efi/libefi
+# make
+```
