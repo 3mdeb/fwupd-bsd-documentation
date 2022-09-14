@@ -120,7 +120,7 @@ function install_openbsd() {
                        -netdev user,id=mynet0,tftp=tftp/,bootfile=auto_install \
                        -device virtio-net,netdev=mynet0 \
                        -bios OVMF.fd \
-                       -smp 6 \
+                       -smp $(nproc) \
                        -cpu host \
                        -serial stdio \
                        -display none
