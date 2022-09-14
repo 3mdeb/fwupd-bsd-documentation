@@ -127,7 +127,7 @@ make -C ../compile/CUSTOM -j6
 doas cp /sys/arch/amd64/compile/CUSTOM/obj/bsd /bsd.custom
 ```
 
-Now can reboot and run `> bios bsd.custom` command in bootloader to load newly
+Now can reboot and run `bsd.custom` command in bootloader to load newly
 build kernel. Verify the result with `uname`:
 
 ```
