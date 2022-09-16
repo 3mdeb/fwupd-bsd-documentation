@@ -1,0 +1,30 @@
+#! /bin/ksh
+
+set -o errexit
+
+echo "https://cdn.openbsd.org/pub/OpenBSD" > /etc/installurl
+echo "permit nopass keepenv :wheel" >> /etc/doas.conf
+
+if [ -f id_rsa.pub ]; then
+    cat id_rsa.pub >> ~user/.ssh/authorized_keys
+fi
+
+pkg_add bash git vim--no_x11
+
+# let user do kernel development
+doas user mod -G wsrc,wobj user
+
+# bash and Vim for root
+chsh -s bash
+echo 'PS1='\''[\w]\$ '\' >> /root/.bashrc
+echo 'source ~/.bashrc' >> /root/.profile
+cp vimrc /root/.vimrc
+
+# bash and Vim for regular user
+chsh -s bash user
+echo 'PS1='\''[\w]\$ '\' >> ~user/.bashrc
+echo 'source ~/.bashrc' >> ~user/.profile
+cp vimrc ~user/.vimrc
+chown user:user ~user/.bashrc ~user/.vimrc
+
+shutdown -p now
