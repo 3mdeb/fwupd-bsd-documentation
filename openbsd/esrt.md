@@ -10,9 +10,9 @@ The plan is:
  * install both of them
  * reboot and check that it works
 
-## Preparation (as in README.md)
+## Preparation
 
-As a regular user asumming `doas` is configured:
+As a regular user assuming `doas` is configured:
 
 ```
 # install git package
@@ -21,7 +21,7 @@ doas pkg_add git
 # add your user to wsrc and wobj groups (relogin to apply these changes)
 doas user mod -G wsrc,wobj $USER
 
-git clone -b esrt https://github.com/3mdeb/openbsd-src /usr/src
+git clone --depth 1 -b esrt https://github.com/3mdeb/openbsd-src /usr/src
 ```
 
 ## Kernel compilation
