@@ -2,7 +2,7 @@
 
 ## Releases
 
-**How is OpenBSD released?**
+**How is DragonflyBSD released?**
 
 Releases occur approximately twice a year. DragonFly release branches only
 contain bug and security fixes and are designed for people running production
