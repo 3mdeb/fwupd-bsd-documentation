@@ -64,7 +64,7 @@ Crosscompilation guide:
 - build the kernel
   - `./build.sh -U -u -N 1 -j8 -O ~/obj -m amd64 -a x86_64 kernel=MYKERNEL`
 - build a release (userland)
-  - `./build.sh -U -u -N 1 -j2 -O ~/obj -m arm64 -a x86_64 release`
+  - `./build.sh -U -u -N 1 -j2 -O ~/obj -m amd64 -a x86_64 release`
   - the option `-j2` is used here - it selects how many cores will be used for 
   compilation, here it is reduced to 2 because 8 threads may produce errors 
   with multiple `make` branches
