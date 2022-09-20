@@ -1,13 +1,17 @@
-# Instructions for getting ESRT on OpenBSD
+# Instructions for getting user-space ESRT API on OpenBSD
 
 Read [README.md](./README.md) first for general information.
 
+This is very similar to what's described in [esrt.md](./esrt.md), but
+duplication is intentional for simplicity.
+
 The plan is:
- * obtain `esrt` branch of https://github.com/3mdeb/openbsd-src fork of OpenBSD
-   source tree
+ * obtain `esrt-api` branch of https://github.com/3mdeb/openbsd-src fork of
+   OpenBSD source tree
  * compile kernel
  * compile EFI bootloader
- * install both of them
+ * install both of them and create `/dev/efi`
+ * compile and install tool that uses ESRT API
  * reboot and check that it works
 
 ## Preparation
@@ -21,7 +25,7 @@ doas pkg_add git
 # add your user to wsrc and wobj groups (relogin to apply these changes)
 doas user mod -G wsrc,wobj $USER
 
-git clone --depth 1 -b esrt https://github.com/3mdeb/openbsd-src /usr/src
+git clone --depth 1 -b esrt-api https://github.com/3mdeb/openbsd-src /usr/src
 ```
 
 ## Kernel compilation
@@ -50,13 +54,26 @@ make -C /sys/arch/amd64/stand/efiboot/bootx64
 doas cp /sys/arch/amd64/compile/CUSTOM/obj/bsd /bsd.custom
 
 # mount EFI partition
-mount -t msdos /dev/sd0i /mnt/
+doas mount -t msdos /dev/sd0i /mnt/
 
 # install EFI bootloader
-cp /sys/arch/amd64/stand/efiboot/bootx64/BOOTX64.EFI /mnt/efi/BOOT/
+doas cp /sys/arch/amd64/stand/efiboot/bootx64/BOOTX64.EFI /mnt/efi/BOOT/
 
 # unmount EFI partition
-umount /mnt/
+doas umount /mnt/
+
+# create /dev/efi file
+doas sh -c 'cd /dev && /usr/src/etc/etc.amd64/MAKEDEV efi'
+```
+
+## Prepare user-space tool
+
+```
+# build sample tool
+make -C /usr/src/usr.sbin/efitable
+
+# install it
+doas make -C /usr/src/usr.sbin/efitable install
 ```
 
 ## Reboot
@@ -68,8 +85,16 @@ doas reboot
 When bootloader asks for input (`boot>` prompt), type in `bsd.custom` and press
 Enter key.
 
-Now if you check out output of `dmesg` and your device has any ESRT entries, you
-should see something like the following at the top of `dmesg`'s output:
+## Use the tool
+
+`dmesg` won't contain ESRT output here, but it can be obtained by running
+`efitable` tool like this:
+
+```
+doas efitable -t esrt
+```
+
+Output should resemble this:
 
 ```
 ESRT FwResourceCount = 2
