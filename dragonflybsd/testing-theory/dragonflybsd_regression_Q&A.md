@@ -27,8 +27,11 @@ in our testing env (eg. pfSense, Ubuntu, Debian). They're implemented using
 Robot Framework and Bash scripts. Main issue would be creating unattended
 installer __and documentation how to create one__.
 
-[Auto installer creation guide](https://umbriel.fr/blog/DragonFly_BSD_autoinstall.html)
-[Similar guide for FreeBSD](https://www.freebsd.org/cgi/man.cgi?bsdinstall(8))
+    - [Auto installer creation guide](https://umbriel.fr/blog/DragonFly_BSD_autoinstall.html)
+    - [Similar guide for FreeBSD](https://www.freebsd.org/cgi/man.cgi?bsdinstall(8))
+
+1. Most propably VMs are going to be used during test procedures so automatic
+OS installation may not be neccesary.
 
 ## Contributing to the regression repository
 
@@ -39,15 +42,17 @@ contact maintainers for information.
 
 **What tests should be added?**
 
-All functionalities that will be added should have tests. More it will be
-possible to describe in detail after the implementation is completed.
+All functionalities that will be added should have tests. It will be
+possible to describe in more detail after the implementation is completed.
 
-What we would probably like to check:
+What we probably would  like to check:
 
 Values ​​from the ESRT table, however, a tool from
 [this site](https://reviews.freebsd.org/rG24f398e7a153a05a7e94ae8dd623e2b6d28d94eb)
 is needed. It seems that API will be compatible so one might work after updating
 EFI-specific including having the form like `dev/efi/efi.h`.
+
+Most propably for ESRT tables test we will use `kenv` tool.
 
 Features to be added:
 
