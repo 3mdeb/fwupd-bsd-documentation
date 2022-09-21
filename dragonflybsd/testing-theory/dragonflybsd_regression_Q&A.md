@@ -52,8 +52,6 @@ Values ​​from the ESRT table, however, a tool from
 is needed. It seems that API will be compatible so one might work after updating
 EFI-specific including having the form like `dev/efi/efi.h`.
 
-Most propably for ESRT tables test we will use `kenv` tool.
-
 Features to be added:
 
 * efi_append_variable() - appends data of size to the variable specified by guid
