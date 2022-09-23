@@ -118,7 +118,7 @@ are instructions from downloading sources to kernel installation:
 # git checkout 3mdeb/esrt
 ```
 
-3. Build kernel (no need to build toolchain, because we're not cross-compiling)
+4. Build kernel (no need to build toolchain, because we're not cross-compiling)
 
 First time:
 
@@ -173,7 +173,7 @@ in [Building custom kernel](#Building-custom-kernel) section. To verify ESRT
 tables functionality you need to load EFI runtime module:
 
 ```
-# kldload eifrt
+# kldload efirt
 ```
 
 Then you should see similar output in `dmesg` or main monitor (it should not be
