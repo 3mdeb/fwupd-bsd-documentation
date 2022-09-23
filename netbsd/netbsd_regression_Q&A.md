@@ -1,67 +1,124 @@
-# NetBSD Regression Tests Research
+# NetBSD tests research
 
-- [Repository](https://github.com/NetBSD/src)
-- [Tests](https://github.com/NetBSD/src/tree/trunk/tests)
-- [Readme](https://github.com/NetBSD/src#readme)
+## Releases
 
-## IMPORTANT
+**How is NetBSD released?**
 
-During research occured some problems with installation and booting to NetBSD
-OS on various platforms avalible in 3mdeb lab. Unfortunatley, those problems
-made it impossible to confirm proper functionality of the regression tests.
+The release information appears on the official project
+[website](https://www.netbsd.org/). The new version is probably announced
+earlier, by using the official communication channels. All releases contain
+the new OS and release notes which accurately describe the changes in the
+software.
 
-## Building NetBSD from repository
+**How often are NetBSD releases shipped?**
 
-- [Building Manual](https://github.com/NetBSD/src/blob/trunk/BUILDING)
+Releases occur approximately once a year (looking at the last 4 years,
+earlier - very inregullary).
 
-To build for amd64 (x86_64) execute below command in the `src` directory:
+According to the OS glossary, stabale version releases are called formal
+releases. 
 
-```bash
-    ./build.sh -U -u -j4 -m amd64 -O ~/obj release
-```
+Release map is available on the page dedicated to the
+[project](https://www.netbsd.org/releases/release-map.html).
 
-- [Daily Builds](https://nycdn.netbsd.org/pub/NetBSD-daily/HEAD/latest/)
-- [Relases](https://cdn.netbsd.org/pub/NetBSD/)
+**What is the testing process like before a new version is released?**
 
-## Testing
+No information about the testing process has been founded.
 
-Regression tests are built in NetBSD OS and are performed from terminal.
-One-liner to run tests:
+## Regression repository
+
+**What is the regression test range?**
+
+At this point is hard to specify - but there are a lot of tests.
+
+**Where can I find the regression test code?**
+
+[here](https://github.com/NetBSD/src/tree/trunk/tests)
+
+**How are regression tests written (language, transparency, syntax)?**
+
+Lots of small C files with corresponding Makefiles in each folder, also lots of
+bash scripts.
+
+**Is it possible to set infra locally, what commands can be used to invoke particular kits and/or test cases?**
+
+The regression files must be located directly on the platform being tested and
+run from there.
+
+With the repo, we only need the regress folder, and when we have it on the
+device, just do:
 
 ```bash
     cd /usr/tests; atf-run | atf-report
 ```
 
-## Best practices while creating new tests
+and all regression will begin to execute.
 
-When adding new tests, please try to follow the following conventions.
+**Are any CI / CD mechanisms introduced? If so, what are they?**
 
-1. For library routines, including system calls, the directory structure of
-   the tests should follow the directory structure of the real source tree.
-   For instance, interfaces available via the C library should follow:
+No mechanism has been founded.
 
-```bash
-    src/lib/libc/gen -> src/tests/lib/libc/gen
-    src/lib/libc/sys -> src/tests/lib/libc/sys
-    ...
-```
+**Are there a lot of Issues in the test infrastructure repository and are there a lot of requests?**
 
-1. Equivalently, all tests for userland utilities should try to follow their
-   location in the source tree. If this can not be satisfied, the tests for
-   a utility should be located under the directory to which the utility is
-   installed. Thus, a test for env(1) should go to src/tests/usr.bin/env.
-   Likewise, a test for tcpdump(8) should be in src/tests/usr.sbin/tcpdump,
-   even though the source code for the program is located under src/external.
+The repository does not contain `Issues` section. All bugs should be reported
+by using [web form](https://www.netbsd.org/cgi-bin/sendpr.cgi?gndb=netbsd)
 
-1. Otherwise use your own discretion.
+## Contributing to the regression repository
 
-- [Link](https://github.com/NetBSD/src/blob/trunk/tests/README)
+Full contribute documentation is available on the
+[project site](https://www.netbsd.org/contrib/).
 
-1. It would be more convenient to create new tests similarly to ones currently
-existing in repo. Introducing whole robot framework environment to the project
-may raise many questions and create many issues.
+## Test scope
 
-## OS installation in automated test
+**What tests should be added?**
+
+All functionalities that will be added should have tests. It will be
+possible to describe in more detail after the implementation is completed.
+
+What we probably would  like to check:
+
+Values ​​from the ESRT table, however, a tool from
+[this site](https://reviews.freebsd.org/rG24f398e7a153a05a7e94ae8dd623e2b6d28d94eb)
+is needed. It seems that API will be compatible so one might work after updating
+EFI-specific including having the form like `dev/efi/efi.h`.
+
+Features to be added:
+
+* efi_append_variable() - appends data of size to the variable specified by guid
+and name.
+* efi_del_variable() - deletes the variable specified by guid and name.
+* efi_get_variable() - gets variable's data_size, and its attributes are stored
+in attributes.
+* efi_get_variable_attributes() - gets attributes for the variable specified by
+guid and name.
+* efi_get_variable_size() - gets the size of the data for the variable specified
+by guid and name.
+* efi_get_next_variable_name() - iterates across the currently extant variables,
+passing back a guid and name
+* efi_guid_to_name() - translates from an efi_guid_t to a well known name.
+* efi_guid_to_symbol() - translates from an efi_guid_t to a unique
+(within libefivar) C-style symbol name.
+* efi_guid_to_str() - allocates a suitable string and populates it with string
+representation of a UEFI GUID.
+* efi_name_to_guid() - translates from a well known name to an efi_guid_t.
+* efi_set_variable() - sets the variable specified by guid and name.
+* efi_str_to_guid() - parses a UEFI GUID from string form to an efi_guid_t.
+* efi_variables_supported() - checks if EFI variables are accessible.
+* efi_generate_file_device_path() - generates an EFI file device path for an EFI
+binary from a filesystem path.
+
+To start writing tests, a new folder with matching name tests should be created.
+Add a `Makefile` file that handles and sets tests within a given location
+and accordingly test files, which in this case will probably be bash scripts,
+but it all depends if some other language (C/Perl) doesn't get any easier
+write tests.
+
+**Do the project developers provide any additional information regarding the tests**
+
+Project developers informs about test best practices, which might be founded
+in [README file](https://github.com/NetBSD/src/blob/trunk/tests/README).
+
+## Additional information: OS installation in automated test
 
 1. Automatic os installation test are currently implemented in various cases
 in our testing env (eg. pfSense, Ubuntu, Debian). They're implemented using
