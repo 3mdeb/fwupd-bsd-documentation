@@ -32,7 +32,7 @@ At this point is hard to specify - but there are a lot of tests.
 
 **How are regression tests written (language, transparency, syntax)?**
 
-Lots of small C ++ files with corresponding Makefiles in each folder, lots of
+Lots of small C++ files with corresponding Makefiles in each folder, lots of
 bash scripts and Perl files too and you can find single files with an exotic
 extension.
 
