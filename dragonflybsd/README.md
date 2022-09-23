@@ -43,7 +43,7 @@ $ qemu-system-x86_64 -m 2048 -boot d \
    -bios /usr/share/ovmf/x64/OVMF.fd \
    -cdrom dfly-x86_64-6.2.2_REL.iso \
    -drive if=virtio,file=disk.qcow2,format=qcow2 \
-   -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
+   -netdev user,id=mynet0,hostfwd=tcp::9272-:22 \
    -device e1000,netdev=mynet0 -enable-kvm -smp 4 -cpu host
 ```
 
@@ -61,7 +61,7 @@ After installing DragonflyBSD we can run QEMU without mounted `.iso`:
  $ qemu-system-x86_64 -m 2048 -boot d \
    -bios /usr/share/ovmf/x64/OVMF.fd \
    -drive if=virtio,file=disk.qcow2,format=qcow2 \
-   -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
+   -netdev user,id=mynet0,hostfwd=tcp::9272-:22 \
    -device e1000,netdev=mynet0 -enable-kvm -smp 4 -cpu host
 ```
 
@@ -84,7 +84,7 @@ on DragonflyBSD.
 
 Now you should be able to connect:
 ```
-$ ssh -p 7722 root@localhost
+$ ssh -p 9272 root@localhost
 ```
 
 ## Building custom kernel
@@ -112,25 +112,71 @@ are instructions from downloading sources to kernel installation:
 # ln -s /root/kernels/MYKERNEL
 ```
 
-3. Prepare DragonflyBSD toolchanin
+3. Build kernel (no need to build toolchain, because we're not cross-compiling)
 
-> NOTE: It is more challenging for PC than building kernel - it may take a few
-hours
-
-```
-# cd /usr/src
-# make buildworld
-```
-
-4. Build kernel
+First time:
 
 ```
-# make -j4 buildkernel KERNCONF=MYKERNEL
+# make -j4 nativekernel KERNCONF=MYKERNEL
 ```
 
-5. Install kernel
+Future times (`nativekernel` always starts from scratch, so use it only once or
+to do a rebuild):
 
 ```
-# make installekernel KERNCONF=MYKERNEL
+# make -j4 quickkernel KERNCONF=MYKERNEL
+```
+
+4. Install kernel
+
+```
+# make installkernel KERNCONF=MYKERNEL
 # reboot
+```
+
+Mind that rebooting might not be necessary if you can test your changes by
+loading a module with `kldload` command.
+
+5. Building/installing EFI bootloader
+
+First time (need to build `/usr/src/stand/lib/` to avoid cryptic build
+failures):
+
+```
+# cd /usr/src/stand
+# make
+# cd /usr/src/stand/boot/efi/loader
+# make
+# make install
+```
+
+Future times:
+
+```
+# cd /usr/src/stand/boot/efi/loader
+# make
+# make install
+```
+
+## Troubleshooting
+
+In case of errors with binutils during building bootloader:
+
+```
+/usr/libexec/binutils234/elf/nm: 'netif.o': No such file
+/usr/libexec/binutils234/elf/nm: 'nfs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'dosfs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'ext2fs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'splitfs.o': No such file
+/usr/libexec/binutils234/elf/nm: 'hammer1.o': No such file
+/usr/libexec/binutils234/elf/nm: 'hammer2.o': No such file
+/usr/libexec/binutils234/elf/ar: hammer2.o: No such file or directory
+*** [libstand32.a] Error code 1
+```
+
+try to build `libefi` first:
+
+```
+# cd /usr/src/stand/boot/efi/libefi
+# make
 ```
