@@ -112,6 +112,12 @@ are instructions from downloading sources to kernel installation:
 # ln -s /root/kernels/MYKERNEL
 ```
 
+3. Add 3mdeb repo to remotes
+```
+# git remote add 3mdeb https://github.com/3mdeb/DragonFlyBSD.git
+# git checkout 3mdeb/esrt
+```
+
 3. Build kernel (no need to build toolchain, because we're not cross-compiling)
 
 First time:
@@ -148,6 +154,7 @@ failures):
 # cd /usr/src/stand/boot/efi/loader
 # make
 # make install
+# reboot
 ```
 
 Future times:
@@ -156,6 +163,34 @@ Future times:
 # cd /usr/src/stand/boot/efi/loader
 # make
 # make install
+# reboot
+```
+
+## Verification
+
+Kernel and bootloader from 3mdeb sources should be installed which was described
+in [Building custom kernel](#Building-custom-kernel) section. To verify ESRT
+tables functionality you need to load EFI runtime module:
+
+```
+# kldload eifrt
+```
+
+Then you should see similar output in `dmesg` or main monitor (it should not be
+visible on ttyS0 or SSH connection console)
+
+```
+esrt->fw_resource_count = 1
+esrt->fw_resource_count_max = 1
+esrt->fw_resource_version = 1
+ESRT[0]:
+  Fw Type: 0x00000001
+  Fw Ckass: 212026ee-fde4-4d08-ac41-c62cb4036a42
+  Fw Version: 0x00011506
+  Lowest Supported Fw Version: 0x00011506
+  Capsule Flags: 0x00020000
+  Last Attempt Version: 0x00000000
+  Last Attempt Status: 0x00000000
 ```
 
 ## Troubleshooting
