@@ -38,7 +38,7 @@ cd /sys/arch/amd64/conf/
 config CUSTOM
 
 # build the kernel for the first time
-make -C ../compile/CUSTOM -j$(nproc)
+make -C ../compile/CUSTOM -j$(sysctl -n hw.ncpu)
 ```
 
 ## EFI bootloader compilation
