@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # OpenBSD version (if V is 71, then VV is 7.1)
 V=71

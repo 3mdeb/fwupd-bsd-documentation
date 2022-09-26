@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ ! -f disk.qcow2 ]; then
     echo "disk.qcow2 doesn't exists! Run setup.sh first."
