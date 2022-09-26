@@ -9,6 +9,7 @@ The plan is:
  * install kernel with support for EFI variables
  * prepare environment for building ports
  * build and install `efivar` port
+ * compile and install test tool that uses `libefivar`
  * verify that it works
 
 ## Install kernel with support for EFI variables
@@ -49,71 +50,79 @@ make package
 doas make install
 ```
 
-## Use `efivar` binary
+## Prepare user-space tool
+
+```
+# build sample tool
+make -C /usr/src/usr.sbin/efivarlibtest
+
+# install it
+doas make -C /usr/src/usr.sbin/efivarlibtest install
+```
+
+## Use the test tool (almost identical to `efivartest`)
 
 ### Adding/updating a variable
 
 ```
-echo -n newval > value
-doas efivar -w -n aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee-test -f value
+doas efivarlibtest set aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee test newval
 ```
 
 ### Reading a variable
 
 ```
-doas efivar -p -n aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee-test
+doas efivarlibtest get aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee test
 ```
 
 ```
-GUID: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
-Name: "test"
-Attributes:
-	Non-Volatile
-	Boot Service Access
-	Runtime Service Access
-Value:
-00000000  6e 65 77 76 61 6c                                 |newval          |
+aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee-test (6):
+ HEX: 0x6e 0x65 0x77 0x76 0x61 0x6c
+ ASCII: newval
 ```
 
 ### Listing variables
 
 ```
-doas efivar -l
+doas efivarlibtest list
 ```
 
+The difference from `efivartest` is here, `libefivar` can replace GUIDs with
+their mnemonics.
+
 ```
-8be4df61-93ca-11d2-aa0d-00e098032b8c-OsIndicationsSupported
-8be4df61-93ca-11d2-aa0d-00e098032b8c-BootOptionSupport
-8be4df61-93ca-11d2-aa0d-00e098032b8c-LangCodes
-8be4df61-93ca-11d2-aa0d-00e098032b8c-PlatformLangCodes
-8be4df61-93ca-11d2-aa0d-00e098032b8c-PlatformRecovery0000
-8be4df61-93ca-11d2-aa0d-00e098032b8c-BootCurrent
-8be4df61-93ca-11d2-aa0d-00e098032b8c-ConInDev
-8be4df61-93ca-11d2-aa0d-00e098032b8c-ConOutDev
-8be4df61-93ca-11d2-aa0d-00e098032b8c-ErrOutDev
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Boot0000
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Timeout
-8be4df61-93ca-11d2-aa0d-00e098032b8c-PlatformLang
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Lang
-04b37fe8-f6ae-480b-bdd5-37d98c5e89aa-VarErrorFlag
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Key0000
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Key0001
-964e5b22-6459-11d2-8e39-00a0c969723b-NvVars
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Boot0001
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Boot0002
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Boot0003
-8be4df61-93ca-11d2-aa0d-00e098032b8c-BootOrder
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Boot0004
-378d7b65-8da9-4773-b6e4-a47826a833e1-RTC
-8be4df61-93ca-11d2-aa0d-00e098032b8c-Boot0005
-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee-test
-eb704011-1402-11d3-8e77-00a0c969723b-MTC
-8be4df61-93ca-11d2-aa0d-00e098032b8c-ConOut
-8be4df61-93ca-11d2-aa0d-00e098032b8c-ConIn
-8be4df61-93ca-11d2-aa0d-00e098032b8c-ErrOut
+{global}-OsIndicationsSupported
+{global}-BootOptionSupport
+{global}-LangCodes
+{global}-PlatformLangCodes
+{global}-PlatformRecovery0000
+{global}-BootCurrent
+{global}-ConInDev
+{global}-ConOutDev
+{global}-ErrOutDev
+{global}-Boot0000
+{global}-Timeout
+{global}-PlatformLang
+{global}-Lang
+{04b37fe8-f6ae-480b-bdd5-37d98c5e89aa}-VarErrorFlag
+{global}-Key0000
+{global}-Key0001
+{global}-ConOut
+{global}-ConIn
+{global}-ErrOut
+{964e5b22-6459-11d2-8e39-00a0c969723b}-NvVars
+{global}-Boot0001
+{global}-Boot0002
+{global}-Boot0003
+{global}-BootOrder
+{global}-Boot0004
+{378d7b65-8da9-4773-b6e4-a47826a833e1}-RTC
+{global}-Boot0005
+{eb704011-1402-11d3-8e77-00a0c969723b}-MTC
+{aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee}-test
 ```
 
 ### Deleting a variable
 
-The `efivar` tool doesn't have an option for this, library has a corresponding
-API.
+```
+doas efivarlibtest delete aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee test
+```
