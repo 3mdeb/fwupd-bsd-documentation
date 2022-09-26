@@ -12,7 +12,7 @@ The plan is:
  * compile EFI bootloader
  * install both of them and create `/dev/efi`
  * compile and install test tool that uses EFI vars API
- * reboot and check that it works
+ * change security level, reboot and check that it works
 
 ## Preparation
 
@@ -75,6 +75,17 @@ make -C /usr/src/usr.sbin/efivartest
 # install it
 doas make -C /usr/src/usr.sbin/efivartest install
 ```
+
+## Change [security level](https://man.openbsd.org/OpenBSD-7.1/securelevel.7)
+
+Use permanently insecure mode to be able to set EFI variables while system is
+boot in multiuser mode:
+
+```
+doas sh -c 'echo sysctl kern.securelevel=-1 > /etc/rc.securelevel'
+```
+
+Alternative is to boot in single user mode.
 
 ## Reboot
 
