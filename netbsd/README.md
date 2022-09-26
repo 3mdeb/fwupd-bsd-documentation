@@ -69,7 +69,7 @@ Crosscompilation guide:
   compilation, here it is reduced to 2 because 8 threads may produce errors 
   with multiple `make` branches
 - create an iso image
-  - `./build.sh -U -u -j2 -O ~/obj -m evbarm -a aarch64 iso-image`
+  - `./build.sh -U -u -j2 -O ~/obj -m amd64 -a x86_64 iso-image`
   - the image is present at `~/obj/releasedir/images`
 
 ### Running a virtual machine with a custom kernel
