@@ -26,11 +26,11 @@ DISTDIR=/usr/distfiles
 PACKAGE_REPOSITORY=/usr/packages
 EOF
 
-mkdir /usr/distfiles /usr/packages
+mkdir -p /usr/ports /usr/distfiles /usr/packages
 chown user:wobj /usr/distfiles /usr/packages/
 
 # to be able to use ports as a regular user which is part of `wheel` group
-chmod -r g+w /usr/ports/
+chmod -R g+w /usr/ports/
 ```
 
 ## Building and installing the port
@@ -41,6 +41,8 @@ As a regular user assuming `doas` is configured:
 git clone --depth 1 -b efivar https://github.com/3mdeb/ports /usr/ports
 
 cd /usr/ports/devel/efivar
+# update "distinfo" file in case it diverged due to active development
+make makesum
 # build the port as a regular user
 make package
 # install as root
@@ -113,4 +115,5 @@ eb704011-1402-11d3-8e77-00a0c969723b-MTC
 
 ### Deleting a variable
 
-The tool doesn't support this operation.
+The `efivar` tool doesn't have an option for this, library has a corresponding
+API.
