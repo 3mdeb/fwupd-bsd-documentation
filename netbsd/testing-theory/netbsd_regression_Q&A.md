@@ -1,20 +1,25 @@
-# OpenBSD regression recognition - Q&A
+# NetBSD tests research
 
 ## Releases
 
-**How is OpenBSD released?**
+**How is NetBSD released?**
 
 The release information appears on the official project
-[website](https://www.openbsd.org/). The new version is probably announced
+[website](https://www.netbsd.org/). The new version is probably announced
 earlier, by using the official communication channels. All releases contain
 the new OS and release notes which accurately describe the changes in the
 software.
 
-**How often are OpenBSD releases shipped?**
+**How often are NetBSD releases shipped?**
 
-Twice a year, mainly April/May and September/October - the months are sometimes
-different, but since 1996 they release 2 versions of the system a year so this
-won't change.
+Releases occur approximately once a year (looking at the last 4 years,
+earlier - very inregullary).
+
+According to the OS glossary, stabale version releases are called formal
+releases. 
+
+Release map is available on the page dedicated to the
+[project](https://www.netbsd.org/releases/release-map.html).
 
 **What is the testing process like before a new version is released?**
 
@@ -28,27 +33,23 @@ At this point is hard to specify - but there are a lot of tests.
 
 **Where can I find the regression test code?**
 
-[here](https://github.com/openbsd/src/tree/master/regress)
+[here](https://github.com/NetBSD/src/tree/trunk/tests)
 
 **How are regression tests written (language, transparency, syntax)?**
 
-Lots of small C++ files with corresponding Makefiles in each folder, lots of
-bash scripts and Perl files too and you can find single files with an exotic
-extension.
+Lots of small C files with corresponding Makefiles in each folder, also lots of
+bash scripts.
 
-**Is it possible to set up a test infrastructure locally?**
+**Is it possible to set infra locally, what commands can be used to invoke particular kits and/or test cases?**
 
 The regression files must be located directly on the platform being tested and
 run from there.
-
-**If it is possible to set infra locally, what commands can be used to invoke particular kits and/or test cases?**
 
 With the repo, we only need the regress folder, and when we have it on the
 device, just do:
 
 ```bash
-    cd regress
-    make regress
+    cd /usr/tests; atf-run | atf-report
 ```
 
 and all regression will begin to execute.
@@ -59,25 +60,22 @@ No mechanism has been founded.
 
 **Are there a lot of Issues in the test infrastructure repository and are there a lot of requests?**
 
-The repository's description states "Pull requests not accepted - send diffs to the
-tech@ mailing list." - [here](https://marc.info/?l=openbsd-tech).
-Bugs are also in [the mailing list](https://marc.info/?l=openbsd-bugs), so hard
-to say how many of them are open.
+The repository does not contain `Issues` section. All bugs should be reported
+by using [web form](https://www.netbsd.org/cgi-bin/sendpr.cgi?gndb=netbsd)
 
 ## Contributing to the regression repository
 
-It is possible to contribute to the project upstream. See
-[this](https://www.openbsd.org/faq/faq5.html#Diff) for how to send patches and
-recommendations at the top of [this](https://www.openbsd.org/mail.html).
+Full contribute documentation is available on the
+[project site](https://www.netbsd.org/contrib/).
 
 ## Test scope
 
 **What tests should be added?**
 
-All functionalities that will be added should have tests. More it will be
-possible to describe in detail after the implementation is completed.
+All functionalities that will be added should have tests. It will be
+possible to describe in more detail after the implementation is completed.
 
-What we would probably like to check:
+What we probably would  like to check:
 
 Values ​​from the ESRT table, however, a tool from
 [this site](https://reviews.freebsd.org/rG24f398e7a153a05a7e94ae8dd623e2b6d28d94eb)
@@ -114,3 +112,19 @@ Add a `Makefile` file that handles and sets tests within a given location
 and accordingly test files, which in this case will probably be bash scripts,
 but it all depends if some other language (C/Perl) doesn't get any easier
 write tests.
+
+**Do the project developers provide any additional information regarding the tests**
+
+Project developers informs about test best practices, which might be founded
+in [README file](https://github.com/NetBSD/src/blob/trunk/tests/README).
+
+## Additional information: OS installation in automated test
+
+1. Automatic os installation test are currently implemented in various cases
+in our testing env (eg. pfSense, Ubuntu, Debian). They're implemented using
+Robot Framework and Bash scripts. Main issue would be creating unattended
+installer __and documentation how to create one__.
+
+[NetBSD unattended installer creation](https://unix.stackexchange.com/questions/250289/automatic-install-netbsd-iso)
+[pfSense installerconfig](https://pcengines.github.io/apu2-documentation/pfsense_installerconfig/)
+[NetBSD supported hardware](https://www.netbsd.org/ports/)
