@@ -17,7 +17,7 @@ and verification purposes.
 
 ## Scripts
 
-These scripts do not provide full automation but still can be useful
+These scripts do not provide full automation but still can be useful:
 
 - **vm/setup.sh** - run QEMU machine first time and boot to the default
 installer
@@ -49,8 +49,8 @@ $ qemu-system-x86_64 -m 2048 -boot d \
 
 > Note that OVMF path may be different in some systems
 
-The installation process isn't difficult; we need to answer a few questions (e.g.
-choose filesystem) and was described
+The installation process isn't difficult; we need to answer a few questions
+(e.g. choose filesystem) and it was described
 [here](https://www.dragonflybsd.org/docs/handbook/Installation/#index3h2).
 
 ## Running DragonflyBSD in QEMU
@@ -68,21 +68,31 @@ After installing DragonflyBSD we can run QEMU without mounted `.iso`:
 As a default, we do not have terminal emulation. Only one output is on the
 graphic window with rendered console. To make development and validation easier,
 it is good to obtain an SSH connection between host and QEMU machine. To do
-that, you should set these values in `/etc/rc.conf` (on host machine):
+that, you should set these values in `/etc/rc.conf` (in QEMU VM):
 
 ```
  sshd_enable="YES"
  ifconfig_em0="DHCP"
 ```
 
-Now you need to send your public key to `/home/root/.ssh/authorized_keys` file
-on DragonflyBSD.
+Now, you need to somehow download your public key into the
+`/home/root/.ssh/authorized_keys` file in QEMU VM.
+
+* Using `scp` from QEMU VM:
 
 ```
+# mkdir ~/.ssh/
 # scp <username>@<IP of host machine in local network>:<path to publickey> /home/root/.ssh/authorized_keys
 ```
 
-Now you should be able to connect:
+* Using public keys stored in github:
+
+```
+# mkdir ~/.ssh
+# fetch -o ~/.ssh/authorized_keys https://github.com/<github username>.keys
+```
+
+Now you should be able to connect to the QEMU VM from your host machine via SSH:
 ```
 $ ssh -p 9272 root@localhost
 ```
