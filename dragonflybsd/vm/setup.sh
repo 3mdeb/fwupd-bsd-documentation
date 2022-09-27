@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ ! -f dfly-x86_64-6.2.2_REL.iso ]; then
     echo "dfly-x86_64-6.2.2_REL.iso doesn't exists!"
