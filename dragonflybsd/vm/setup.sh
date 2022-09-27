@@ -15,7 +15,7 @@ fi
 
 echo "Running QEMU..."
 qemu-system-x86_64 -m 2048 -boot d \
-   -bios /usr/share/ovmf/x64/OVMF.fd \
+   -bios OVMF.fd \
    -cdrom dfly-x86_64-6.2.2_REL.iso \
    -drive if=virtio,file=disk.qcow2,format=qcow2 \
    -netdev user,id=mynet0,hostfwd=tcp::9272-:22 \
