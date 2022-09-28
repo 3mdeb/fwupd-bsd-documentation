@@ -58,6 +58,7 @@ Sources initialization may take a while. After that, add 3mdeb repository:
 ```
 # cd /usr/src/usr.sbin/efitable
 # make
+# make install
 ```
 
 ## Verification
@@ -73,8 +74,7 @@ tables functionality you need to load EFI runtime module:
 and execute `efitable` tool:
 
 ```
-# cd /usr/src/usr.sbin/efitable
-# ./efitable -t esrt
+# efitable -t esrt
 ```
 
 Output should resemble this:
