@@ -51,8 +51,19 @@ It can also be built manually by cloning https://github.com/tianocore/edk2/
 along with its submodules and building with the following commands in its root:
 
 ```
+git clone https://github.com/tianocore/edk2
+cd edk2
+git submodule update --init
 make -C BaseTools
-( . edksetup.sh && build -a X64 -p OvmfPkg/OvmfPkgX64.dsc -t GCC5 -b RELEASE -n $(nproc) )
+( . edksetup.sh && build -a X64 -p OvmfPkg/OvmfPkgX64.dsc -t GCC5 -b RELEASE -n 5 )
+```
+
+`OVMF.fd` should be present at `Build/OvmfPkg/RELEASE_GCC5/FV/OVMF.fd`
+
+Also symlink it to the `netbsd` directory
+
+```
+ln -s Build/OvmfPkg/RELEASE_GCC5/FV/OVMF.fd ../
 ```
 
 ### Installation process
