@@ -70,12 +70,10 @@ ln -s Build/OvmfPkg/RELEASE_GCC5/FV/OVMF.fd ../
 
 ### Installation process
 
-Create a disk image, and grab symlink the install cd image: 
+Create a disk image
 
 ```
 qemu-img create -f qcow2 disk.qcow2 15G
-
-ln -s obj/releasedir/images/NetBSD-9.99.100-amd64.iso NetBSD-9.99.100-amd64.iso
 ```
 
 Run the installer:
