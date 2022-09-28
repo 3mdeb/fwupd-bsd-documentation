@@ -31,6 +31,10 @@ Build toolchain, kernel and release, produce an `.iso` image
 
 Produced image is at `obj/releasedir/images/NetBSD-9.99.100-amd64.iso`
 
+```
+ln -s obj/releasedir/images/NetBSD-9.99.100-amd64.iso ../
+```
+
 ## Install NetBSD
 
 Make sure you are in the `netbsd` directory (`cd ..` after building system)
