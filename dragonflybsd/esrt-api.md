@@ -4,7 +4,7 @@ Read [README.md](./README.md) first for general information.
 
 The plan is:
  * obtain `ioctl-efitool` branch of
- https://github.com/3mdeb/DragonFlyBSD/tree/octl-efitool fork of DragonFlyBSD
+ https://github.com/3mdeb/DragonFlyBSD/tree/ioctl-efitool fork of DragonFlyBSD
  source tree
  * compile kernel
  * compile EFI bootloader
