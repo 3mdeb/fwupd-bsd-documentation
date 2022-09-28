@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ ! -f disk.qcow2 ]; then
     echo "disk.qcow2 doesn't exists! Run setup.sh first."
@@ -11,8 +11,8 @@ qemu-system-x86_64 -m 2048 \
                    -enable-kvm \
                    -display gtk \
                    -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:9272-:22 \
-                   -device virtio-net,netdev=mynet0 \
-                   -bios /usr/share/ovmf/x64/OVMF.fd \
+                   -device e1000,netdev=mynet0 \
+                   -bios OVMF.fd \
                    -smp 6 \
                    -s \
                    -cpu host
