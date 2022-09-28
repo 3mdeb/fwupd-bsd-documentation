@@ -121,7 +121,7 @@ cp GENERIC.MP CUSTOM
 config CUSTOM
 
 # build the kernel for the first time (takes about 3 minutes)
-make -C ../compile/CUSTOM -j6
+make -C ../compile/CUSTOM -j$(sysctl -n hw.ncpu)
 
 # copy the kernel image into / for convenience
 doas cp /sys/arch/amd64/compile/CUSTOM/obj/bsd /bsd.custom
