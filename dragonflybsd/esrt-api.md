@@ -6,9 +6,7 @@ The plan is:
  * obtain `ioctl-efitool` branch of
  https://github.com/3mdeb/DragonFlyBSD/tree/ioctl-efitool fork of DragonFlyBSD
  source tree
- * compile kernel
- * compile EFI bootloader
- * install both of them
+ * compile and install kernel
  * compile and install tool that uses ESRT API
  * reboot and check that it works
 
@@ -43,24 +41,13 @@ Sources initialization may take a while. After that, add 3mdeb repository:
 # make -C ../../ installkernel KERNCONF=MYKERNEL
 ```
 
-## EFI bootloader compilation and installation
-
-```
-# cd /usr/src/stand/boot/efi/libefi
-# make
-
-# cd /usr/src/stand/boot/efi/loader
-# make
-# make install
-# reboot
-```
-
-## Prepare user-space tool
+## Prepare user-space tool and reboot
 
 ```
 # cd /usr/src/usr.sbin/efitable
 # make
 # make install
+# reboot
 ```
 
 ## Verification
