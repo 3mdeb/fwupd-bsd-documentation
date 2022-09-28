@@ -39,8 +39,8 @@ Sources initialization may take a while. After that, add 3mdeb repository:
 # cp X86_64_GENERIC /root/kernels/MYKERNEL
 # ln -s /root/kernels/MYKERNEL
 
-# make -j 4 -C ../../ nativekernel KERNCONF=MYKERNEL
-# make installkernel KERNCONF=MYKERNEL
+# make -j4 -C ../../ nativekernel KERNCONF=MYKERNEL
+# make -C ../../ installkernel KERNCONF=MYKERNEL
 ```
 
 ## EFI bootloader compilation and installation
