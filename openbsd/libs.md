@@ -32,6 +32,11 @@ chown user:wobj /usr/distfiles /usr/packages/
 
 # to be able to use ports as a regular user which is part of `wheel` group
 chmod -R g+w /usr/ports/
+
+# upgrade to 7.2, to make pkg_add work again (upstream made an incompatible
+# change compared to 7.1 and because the kernel being run is 7.2, pkg_add will
+# use binary packages for 7.2 as well)
+sysupgrade
 ```
 
 ## Building and installing the port
@@ -44,9 +49,7 @@ git clone --depth 1 -b efivar https://github.com/3mdeb/ports /usr/ports
 cd /usr/ports/devel/efivar
 # update "distinfo" file in case it diverged due to active development
 make makesum
-# build the port as a regular user
-make package
-# install as root
+# build and install the port (building as root as well to install dependencies)
 doas make install
 ```
 
