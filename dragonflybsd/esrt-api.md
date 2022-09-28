@@ -52,8 +52,8 @@ Sources initialization may take a while. After that, add 3mdeb repository:
 
 ## Verification
 
-Kernel and bootloader from 3mdeb sources should be installed which was described
-in [Building custom kernel](#Building-custom-kernel) section. To verify ESRT
+Kernel from 3mdeb sources should be installed which was described in [kernel
+compilation](#kernel-compilation-and-installation) section. To verify ESRT
 tables functionality you need to load EFI runtime module:
 
 ```
