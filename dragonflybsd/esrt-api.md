@@ -3,8 +3,9 @@
 Read [README.md](./README.md) first for general information.
 
 The plan is:
- * obtain `ioctl-efitool` branch of https://github.com/3mdeb/DragonFlyBSD/tree/esrt
- fork of DragonFlyBSD source tree
+ * obtain `ioctl-efitool` branch of
+ https://github.com/3mdeb/DragonFlyBSD/tree/octl-efitool fork of DragonFlyBSD
+ source tree
  * compile kernel
  * compile EFI bootloader
  * install both of them
@@ -24,6 +25,7 @@ As a root on installed DragonFlyBSD:
 Sources initialization may take a while. After that, add 3mdeb repository:
 
 ```
+# cd /usr/src
 # git remote add 3mdeb https://github.com/3mdeb/DragonFlyBSD.git
 # git fetch 3mdeb
 # git checkout 3mdeb/ioctl-efitool
@@ -37,7 +39,7 @@ Sources initialization may take a while. After that, add 3mdeb repository:
 # cp X86_64_GENERIC /root/kernels/MYKERNEL
 # ln -s /root/kernels/MYKERNEL
 
-# make -j4 nativekernel KERNCONF=MYKERNEL
+# make -j 4 -C ../../ nativekernel KERNCONF=MYKERNEL
 # make installkernel KERNCONF=MYKERNEL
 ```
 
