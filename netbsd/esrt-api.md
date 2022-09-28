@@ -92,6 +92,9 @@ Run the installer:
         -cpu host
 ```
 
+Enter `cd0` when the system asks for `root device`, press enter on everything
+else
+
 Follow the default installation - create default partition tables and press
 enter on any other option. Finish the configuration and exit QEMU.
 
