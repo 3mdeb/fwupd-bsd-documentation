@@ -96,7 +96,12 @@ Enter `cd0` when the system asks for `root device`, press enter on everything
 else
 
 Follow the default installation - create default partition tables and press
-enter on any other option. Finish the configuration and exit QEMU.
+enter on any other option.
+
+If the `Release set xbase` does not exist, continue and `Skip set group` - this
+package set is the X window system, for our purpose we only need the terminal
+
+Finish the configuration and exit QEMU.
 
 Then run the installed system (this command can be used for regular usage)
 
