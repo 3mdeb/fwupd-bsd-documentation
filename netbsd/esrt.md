@@ -31,8 +31,10 @@ Build toolchain, kernel and release, produce an `.iso` image
 
 Produced image is at `obj/releasedir/images/NetBSD-9.99.100-amd64.iso`
 
+Copy it to the `netbsd` directory for ease of use
+
 ```
-ln -s obj/releasedir/images/NetBSD-9.99.100-amd64.iso ../
+cp obj/releasedir/images/NetBSD-9.99.100-amd64.iso ../
 ```
 
 ## Install NetBSD
@@ -60,10 +62,10 @@ make -C BaseTools
 
 `OVMF.fd` should be present at `Build/OvmfPkg/RELEASE_GCC5/FV/OVMF.fd`
 
-Also symlink it to the `netbsd` directory
+Also copy it to the `netbsd` directory
 
 ```
-ln -s Build/OvmfPkg/RELEASE_GCC5/FV/OVMF.fd ../
+cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF.fd ../
 ```
 
 ### Installation process
