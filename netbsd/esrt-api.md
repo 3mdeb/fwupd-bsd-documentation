@@ -10,30 +10,29 @@ The plan is:
 
 ## Build system image
 
-Clone the sources
-```
+* Clone the sources
+
+```bash
 mkdir netbsd
-
 cd netbsd
-
 git clone --depth 1 -b esrt-tests https://github.com/3mdeb/NetBSD-src
-
 cd src
 ```
 
-Build toolchain, kernel and release, produce an `.iso` image
-```
-./build.sh -U -j8 -N 1 -m amd64 tools
-./build.sh -U -u -j8 -N 1 -m amd64 kernel=GENERIC
-./build.sh -U -u -j8 -N 1 -m amd64 release
-./build.sh -U -u -j8 -N 1 -m amd64 iso-image
+* Build toolchain, kernel and release, produce an `.iso` image
+
+```bash
+./build.sh -U -j$(nproc) -N 1 -m amd64 tools
+./build.sh -U -u -j$(nproc) -N 1 -m amd64 kernel=GENERIC
+./build.sh -U -u -j$(nproc) -N 1 -m amd64 release
+./build.sh -U -u -j$(nproc) -N 1 -m amd64 iso-image
 ```
 
 Produced image is at `obj/releasedir/images/NetBSD-9.99.100-amd64.iso`
 
 Copy it to the `netbsd` directory for ease of use
 
-```
+```bash
 cp obj/releasedir/images/NetBSD-9.99.100-amd64.iso ../
 ```
 
@@ -45,11 +44,11 @@ Make sure you are in the `netbsd` directory (`cd ..` after building system)
 
 Running QEMU in EFI mode requires EFI firmware in a form of OVMF.fd file.
 
-Linux distributions can provide one in some package in which case the file can 
+Linux distributions can provide one in some package in which case the file can
 be found at a path similar to /usr/share/ovmf/x64/OVMF.fd or /usr/share/ovmf
 OVMF.fd.
 
-It can also be built manually by cloning https://github.com/tianocore/edk2/ 
+It can also be built manually by cloning https://github.com/tianocore/edk2/
 along with its submodules and building with the following commands in its root:
 
 ```
@@ -67,6 +66,10 @@ Also copy it to the `netbsd` directory
 ```
 cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF.fd ../
 ```
+
+>Note: you can also use this
+[OVMF.fd](https://cloud.3mdeb.com/index.php/s/sTqFBQTLZRp4GBt) with manually
+prepared ESRT tables.
 
 ### Installation process
 
@@ -88,7 +91,7 @@ Run the installer:
         -enable-kvm \
         -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
         -device virtio-net,netdev=mynet0 \
-        -smp 6 \
+        -smp $(nproc) \
         -cpu host
 ```
 
@@ -114,7 +117,7 @@ qemu-system-x86_64 \
         -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:9272-:22 \
         -device virtio-net,netdev=mynet0 \
         -bios OVMF.fd \
-        -smp 6 \
+        -smp $(nproc) \
         -s \
         -cpu host
 ```

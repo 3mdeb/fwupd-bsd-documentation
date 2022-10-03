@@ -67,6 +67,10 @@ Also copy it to the `netbsd` directory
 cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF.fd ../
 ```
 
+>Note: you can also use this
+[OVMF.fd](https://cloud.3mdeb.com/index.php/s/sTqFBQTLZRp4GBt) with manually
+prepared ESRT tables.
+
 ### Installation process
 
 Create a disk image
@@ -82,7 +86,7 @@ Run the installer:
         -m 2048 \
         -boot d \
         -bios OVMF.fd \
-        -cdrom NetBSD-9.99.100-amd64.iso \
+        -cdrom NetBSD-9.99.99-amd64.iso \
         -drive if=virtio,file=disk.qcow2,format=qcow2 \
         -enable-kvm \
         -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
