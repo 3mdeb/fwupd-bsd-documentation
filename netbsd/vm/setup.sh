@@ -1,9 +1,11 @@
 #!/bin/bash
 
-VERSION="9.99.99"
+VERSION="9.99.100"
 ARCH="amd64"
 
 IMAGE_FILENAME="NetBSD-$VERSION-$ARCH.iso"
+
+IMAGE_PATH="$NETBSD_OBJ/releasedir/images/$IMAGE_FILENAME"
 
 function delete_confirmation() {
     if [ ! -f disk.qcow2 ]; then
@@ -27,7 +29,7 @@ function safety_checks() {
         exit 1
     fi
 
-    if [ ! -f $IMAGE_FILENAME ]; then
+    if [ ! -f $IMAGE_PATH ]; then
         echo "Installer image .iso not found, copy it or create a symlink here"
         exit 1
     fi
@@ -67,16 +69,17 @@ function install_netbsd() {
         -m 2048 \
         -boot d \
         -bios OVMF.fd \
-        -cdrom NetBSD-9.99.99-amd64.iso \
+        -cdrom $IMAGE_FILENAME \
         -drive if=virtio,file=disk.qcow2,format=qcow2 \
         -enable-kvm \
         -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
         -device virtio-net,netdev=mynet0 \
-        -smp 6 \
+	-smp $(nproc) \
         -cpu host
 }
 
 delete_confirmation
+ln -sf $IMAGE_PATH $IMAGE_FILENAME
 safety_checks
 dependency_checks
 install_netbsd
