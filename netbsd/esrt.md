@@ -10,30 +10,29 @@ The plan is:
 
 ## Build system image
 
-Clone the sources
-```
+* Clone the sources
+
+```bash
 mkdir netbsd
-
 cd netbsd
-
-git clone --depth 1 -b esrt-tests https://github.com/3mdeb/NetBSD-src
-
+git clone --depth 1 -b esrt-tests https://github.com/3mdeb/NetBSD-src src
 cd src
 ```
 
-Build toolchain, kernel and release, produce an `.iso` image
-```
-./build.sh -U -j8 -N 1 -m amd64 tools
-./build.sh -U -u -j8 -N 1 -m amd64 kernel=GENERIC
-./build.sh -U -u -j8 -N 1 -m amd64 release
-./build.sh -U -u -j8 -N 1 -m amd64 iso-image
+* Build toolchain, kernel and release, produce an `.iso` image
+
+```bash
+./build.sh -U -j$(nproc) -N 1 -m amd64 tools
+./build.sh -U -u -j$(nproc) -N 1 -m amd64 kernel=GENERIC
+./build.sh -U -u -j$(nproc) -N 1 -m amd64 release
+./build.sh -U -u -j$(nproc) -N 1 -m amd64 iso-image
 ```
 
 Produced image is at `obj/releasedir/images/NetBSD-9.99.100-amd64.iso`
 
 Copy it to the `netbsd` directory for ease of use
 
-```
+```bash
 cp obj/releasedir/images/NetBSD-9.99.100-amd64.iso ../
 ```
 
@@ -45,14 +44,14 @@ Make sure you are in the `netbsd` directory (`cd ..` after building system)
 
 Running QEMU in EFI mode requires EFI firmware in a form of OVMF.fd file.
 
-Linux distributions can provide one in some package in which case the file can 
+Linux distributions can provide one in some package in which case the file can
 be found at a path similar to /usr/share/ovmf/x64/OVMF.fd or /usr/share/ovmf
 OVMF.fd.
 
-It can also be built manually by cloning https://github.com/tianocore/edk2/ 
+It can also be built manually by cloning https://github.com/tianocore/edk2/
 along with its submodules and building with the following commands in its root:
 
-```
+```bash
 git clone https://github.com/tianocore/edk2
 cd edk2
 git submodule update --init
@@ -64,7 +63,7 @@ make -C BaseTools
 
 Also copy it to the `netbsd` directory
 
-```
+```bash
 cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF.fd ../
 ```
 
@@ -72,13 +71,13 @@ cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF.fd ../
 
 Create a disk image
 
-```
+```bash
 qemu-img create -f qcow2 disk.qcow2 15G
 ```
 
 Run the installer:
 
-```
+```bash
     qemu-system-x86_64 \
         -m 2048 \
         -boot d \
@@ -88,12 +87,12 @@ Run the installer:
         -enable-kvm \
         -netdev user,id=mynet0,hostfwd=tcp::7722-:22 \
         -device virtio-net,netdev=mynet0 \
-        -smp 6 \
+        -smp $(nproc) \
         -cpu host
 ```
 
 Enter `cd0` when the system asks for `root device`, press enter on everything
-else
+else.
 
 Follow the default installation - create default partition tables and press
 enter on any other option.
@@ -105,7 +104,7 @@ Finish the configuration and exit QEMU.
 
 Then run the installed system (this command can be used for regular usage)
 
-```
+```bash
 qemu-system-x86_64 \
         -m 2048 \
         -drive if=virtio,file=disk.qcow2,format=qcow2 \
@@ -114,7 +113,7 @@ qemu-system-x86_64 \
         -netdev user,id=mynet0,hostfwd=tcp:127.0.0.1:9272-:22 \
         -device virtio-net,netdev=mynet0 \
         -bios OVMF.fd \
-        -smp 6 \
+        -smp $(nproc) \
         -s \
         -cpu host
 ```
@@ -124,7 +123,7 @@ qemu-system-x86_64 \
 Now if you check out output of `dmesg` and your device has any ESRT entries, you
 should see something like the following at the top of `dmesg`'s output:
 
-```
+```bash
 ESRT FwResourceCount = 2
 ESRT[0]:
   FwClass: 415f009f-fb1d-4cc3-8a25-5710a7705918
