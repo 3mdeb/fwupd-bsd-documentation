@@ -101,8 +101,8 @@ To run custom kernel please follow the next two steps after finishing
 instructions from [kernel building section](#building-the-kernel).
 
 * Install NetBSD on qcow2 disk image using [setup](./vm/setup.sh) script.
->Note: please finish default installation using CDROM as source of installer
-image
+>Note: Enter `cd0` when the system asks for `root device`, press enter on
+everything else, run installer from CDROM.
 
 * Run freshly installed NetBSD by running [run](./vm/run.sh) script.
 
