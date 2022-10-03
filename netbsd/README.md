@@ -82,7 +82,7 @@ steps:
   ```
 
 * Build a release (userland)
-  ```
+  ```bash
   ./build.sh -U -u -N 1 -j$(nproc) -O $NETBSD_OBJ -m amd64 -a x86_64 release
   ```
 
