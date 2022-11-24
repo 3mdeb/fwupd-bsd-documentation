@@ -5,10 +5,10 @@ from the [regression folder](https://github.com/DragonFlyBSD/DragonFlyBSD/tree/m
 
 ## Configuration
 
-Tests have been performed on two diffrent Virtual Machines(VM):
+Tests have been performed on two different Virtual Machines(VM):
 
-1. VM with latest stable version(6.2.2) of DragonFlyBSD.
-1. VM with custom version of DragonFlyBSD based on stable version(6.2.2).
+1. VM with the latest stable version(6.2.2) of DragonFlyBSD.
+1. VM with the custom version of DragonFlyBSD based on the stable version(6.2.2).
 
    Customization comes down to configuring the system in accordance with the
    documentation contained in [esrt-api.md](/dragonflybsd/esrt-api.md) and
@@ -25,11 +25,11 @@ Tests have been performed on two diffrent Virtual Machines(VM):
 
 ## Logs from tests
 
-Logs from the tests are aviable on the
+Logs from the tests are available on the
 [cloud](https://cloud.3mdeb.com/index.php/apps/files/?dir=/projects/BSD/dragonflybsd&fileid=517420).
 
 ## Summary
 
 The test results on both machines are identical, which proves that they have
-been entered changes in the custom version don't adversely affect on the
-operating system.
+been entered changes in the custom version don't adversely affect the operating
+system.
